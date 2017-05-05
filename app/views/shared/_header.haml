@@ -9,6 +9,10 @@
       %li
         = link_to 'About', about_path
       %li
-        = link_to 'Cookies', cookies_path
+        = link_to 'Cookies', cookies_path      
       %li
-        = link_to 'Login', new_user_session_path
+        - if !current_user
+          = link_to 'Login', new_user_session_path
+        - else
+          = link_to 'Logout', destroy_user_session_path, method: :delete
+      
