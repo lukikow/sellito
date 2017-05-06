@@ -1,6 +1,10 @@
+#laduje plik ktory okresla min srodowisko uruchomieniowe testow
 require 'rails_helper'
 
+#opisujemy nazwa_testowanej_klasy
 describe CategoriesController do
+
+#opisujemy metody instancji (#metody_instancji, .metody_klasowe)
   describe '#index' do
     it 'returns 200' do
       get :index
