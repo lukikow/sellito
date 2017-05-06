@@ -29,6 +29,31 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
   end
 
+  def edit
+    @category = Category.find(params[:id])
+  end
+
+  def update
+    @category = Category.find(params[:id])
+    @category.update_attributes(category_params)
+    if @category.save
+      flash[:notice] = 'Category updated.'
+      redirect_to category_path(@category)
+    else
+      flash[:alert] = 'Category NOT updated.'
+      redirect_to categories_path
+    end
+  end
+
+  def destroy
+    @category = Category.find(params[:id])
+    @category.destroy!
+    if @category.save
+      flash[:notice] = "Category #{@category.name} deleted."
+      redirect_to categories_path
+    end
+  end
+
   private
   def category_params
     params.require(:category).permit(:name)
