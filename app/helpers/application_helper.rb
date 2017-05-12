@@ -15,4 +15,9 @@ module ApplicationHelper
   def log_in_out_user_link
     current_user ? logout_user_link : login_user_link
   end
+
+  def admin_categories_link
+    categories_link_Tag = "<li>#{link_to 'Categories', categories_path}</li>"
+    categories_link_Tag.html_safe if current_user_is_admin
+  end
 end
