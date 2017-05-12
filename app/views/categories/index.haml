@@ -1,2 +1,9 @@
+%h4 Add categories:
+= render 'form'
+
+%br
+
+%h4 Categories list:
+
 - @categories.each do |c|
   %p= link_to c.name, c

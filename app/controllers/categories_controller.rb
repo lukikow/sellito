@@ -2,6 +2,7 @@ class CategoriesController < ApplicationController
   before_action :fetch_category, only: [:show, :edit, :update, :destroy]
 
   def index
+    new
     @categories = Category.all
   end
 
@@ -17,7 +18,8 @@ class CategoriesController < ApplicationController
     @category = Category.create(category_params)
     if @category.save
       flash[:notice] = 'Category created.'
-      redirect_to category_path(@category) #przeniesienie do nowo utoworzonej kategorii, moza napisac tak: redirect_to @category
+      # redirect_to category_path(@category) #przeniesienie do nowo utoworzonej kategorii, moza napisac tak: redirect_to @category
+      redirect_to categories_path
     else
       flash[:alert] = 'Could not create category!'
       redirect_back(fallback_location: root_path)
