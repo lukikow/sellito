@@ -27,11 +27,9 @@ class CategoriesController < ApplicationController
     #redirect_to root_path
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @category.update_attributes(category_params)
