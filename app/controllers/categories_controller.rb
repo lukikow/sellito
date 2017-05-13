@@ -16,18 +16,7 @@ class CategoriesController < ApplicationController
 
     #przypisanie do zmiennej aby mozna bylo operowac/sprawdzac dane
     @category = Category.create(category_params)
-    if @category.valid?
-      @category.save
-      flash[:notice] = 'Category created.'
-      # redirect_to category_path(@category) #przeniesienie do nowo utoworzonej kategorii, moza napisac tak: redirect_to @category
-      redirect_to categories_path
-    else
-      flash[:alert] = @category.errors.full_messages
-      redirect_back(fallback_location: root_path)
-    end
-
-    ##po utworzeniu kategorii przekieruje do strony glownej
-    #redirect_to root_path
+    @category.valid? ? create_category : handle_category_validation_failed
   end
 
   def show; end
@@ -36,13 +25,14 @@ class CategoriesController < ApplicationController
 
   def update
     @category.update_attributes(category_params)
-    if @category.save
-      flash[:notice] = 'Category updated.'
-      redirect_to category_path(@category)
-    else
-      flash[:alert] = @category.errors.full_messages
-      redirect_to categories_path
-    end
+    redirect_to @category
+    # if @category.save
+    #   flash[:notice] = 'Category updated.'
+    #   redirect_to category_path(@category)
+    # else
+    #   flash[:alert] = @category.errors.full_messages
+    #   redirect_to categories_path
+    # end
   end
 
   def destroy
@@ -56,8 +46,19 @@ class CategoriesController < ApplicationController
     params.require(:category).permit(:name)
   end
 
-
   def fetch_category
     @category = Category.find(params[:id])
+  end
+
+  def create_category
+    @category.save
+    flash[:notice] = 'Category created.'
+    # redirect_to category_path(@category) #przeniesienie do nowo utoworzonej kategorii, moza napisac tak: redirect_to @category
+    redirect_to categories_path
+  end
+
+  def handle_category_validation_failed
+    flash[:alert] = @category.errors.full_messages
+    redirect_back(fallback_location: root_path)
   end
 end

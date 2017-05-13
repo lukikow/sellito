@@ -16,16 +16,9 @@ before_action :fetch_post, only: %i[show edit update destroy]
   end
 
   def create
-    return unless post_params[:user_id] == current_user.id.to_s
+    return unless params_have_valid_user_id
     @post = Post.new(post_params)
-    if @post.valid?
-      @post.save
-      flash[:notice] = 'Post created.'
-      redirect_to @post
-    else
-      flash[:alert] = @post.errors.full_messages
-      redirect_back(fallback_location: root_path)
-    end
+    @post.valid? ? create_post : handle_post_validation_failed
   end
 
   def show; end
@@ -42,6 +35,7 @@ before_action :fetch_post, only: %i[show edit update destroy]
       flash[:alert] = @post.errors.full_messages
       redirect_back(fallback_location: edit_post_path)
     end
+
   end
 
   def destroy
@@ -57,6 +51,21 @@ before_action :fetch_post, only: %i[show edit update destroy]
 
   def fetch_post
     @post = Post.find(params[:id])
+  end
+
+  def create_post
+    @post.save
+    flash[:notice] = 'Post created.'
+    redirect_to @post
+  end
+
+  def handle_post_validation_failed
+    flash[:alert] = @post.errors.full_messages
+    redirect_back(fallback_location: root_path)
+  end
+
+  def params_have_valid_user_id
+    post_params[:user_id] == current_user.id.to_s
   end
 
 end
