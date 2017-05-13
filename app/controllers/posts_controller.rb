@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+before_action :fetch_post, only: [:show, :edit, :update, :destroy]
+
   def index
     @posts = current_user.posts
   end
@@ -19,16 +21,11 @@ class PostsController < ApplicationController
     end
   end
 
-  def show
-    @post = Post.find(params[:id])
-  end
+  def show; end
 
-  def edit
-    @post = Post.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @post = Post.find(params[:id])
     @post.update_attributes(post_params)
     if @post.save
       flash[:notice] = 'Post updated.'
@@ -40,7 +37,6 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
     @post.destroy!
     flash[:notice] = "Post #{@post.title} deleted."
     redirect_to posts_path
@@ -49,6 +45,10 @@ class PostsController < ApplicationController
   private
   def post_params
     params.require(:post).permit(:title, :description, :expire_date, :user_id)
+  end
+
+  def fetch_post
+    @post = Post.find(params[:id])
   end
 
 end
