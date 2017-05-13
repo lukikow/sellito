@@ -7,6 +7,10 @@ before_action :fetch_post, only: %i[show edit update destroy]
     @posts = Post.all.reverse
   end
 
+  def user_posts
+    @posts = current_user.posts
+  end
+
   def new
     @post = Post.new
   end

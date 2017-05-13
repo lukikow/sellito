@@ -1,7 +1,7 @@
 - @posts.each do |c|
   .well
     %h3
-      = link_to c.title, c, style: 'text-decoration:none'
+      = link_to c.title, c
     %p
       = 'Expire at:'
       = c.expiration_date.to_date
