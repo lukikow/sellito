@@ -9,7 +9,18 @@
       %li
         = link_to 'About', about_path
       %li
+        = link_to 'Posts', posts_path
+      %li
         = link_to 'Cookies', cookies_path
-      = admin_categories_link #widok ma byc glupi, nie moze tu byc logiki wiec zostala przeniesiona do helpera
+      %li
+        - if current_user
+          %li.dropdown
+            %a.dropdown-toggle{"data-toggle": "dropdown"}
+              Menu
+              %span.caret
+              %ul.dropdown-menu
+                %li
+                  = user_posts_link
+                = admin_categories_link #widok ma byc glupi, nie moze tu byc logiki wiec zostala przeniesiona do helpera
       %li
         = log_in_out_user_link

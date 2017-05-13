@@ -2,6 +2,6 @@
 
 - @posts.each do |c|
   %p
-    = link_to c.title, c, class: 'btn' 
+    = link_to c.title, c, class: 'btn'
     = 'Expire at:'
-    = c.expiration_date
+    = c.expiration_date.to_date

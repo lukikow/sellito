@@ -5,8 +5,11 @@
 
 %br
 %h4 Title:
-%p
-  = @post.title
+= @post.title
+
+%h4 Expiration date:
+= @post.expiration_date.to_date
+
 %br
 %h4 Description
 %p

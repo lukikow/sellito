@@ -21,4 +21,8 @@ module ApplicationHelper
     categories_link_Tag.html_safe if current_user_is_admin
   end
 
+  def user_posts_link
+    link_to 'Posts', posts_path
+  end
+
 end
