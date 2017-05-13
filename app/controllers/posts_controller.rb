@@ -18,11 +18,12 @@ before_action :fetch_post, only: %i[show edit update destroy]
   def create
     return unless post_params[:user_id] == current_user.id.to_s
     @post = Post.new(post_params)
-    if @post.save
+    if @post.valid?
+      @post.save
       flash[:notice] = 'Post created.'
       redirect_to @post
     else
-      flash[:alert] = 'Could not create category!'
+      flash[:alert] = @post.errors.full_messages
       redirect_back(fallback_location: root_path)
     end
   end
@@ -33,12 +34,13 @@ before_action :fetch_post, only: %i[show edit update destroy]
 
   def update
     @post.update_attributes(post_params)
-    if @post.save
+    if @post.valid?
+      @post.save
       flash[:notice] = 'Post updated.'
       redirect_to @post
     else
-      flash[:alert] = 'Post NOT updated.'
-      redirect_to @post
+      flash[:alert] = @post.errors.full_messages
+      redirect_back(fallback_location: edit_post_path)
     end
   end
 
