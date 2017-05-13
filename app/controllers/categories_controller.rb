@@ -12,7 +12,7 @@ class CategoriesController < ApplicationController
 
   def create
     ## rzuca wyjatkiem, mozna podgladnac parametry
-    #raise params.to_yaml
+    # raise params.to_yaml
 
     #przypisanie do zmiennej aby mozna bylo operowac/sprawdzac dane
     @category = Category.create(category_params)

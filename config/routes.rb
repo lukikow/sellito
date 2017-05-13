@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :categories
 
+  resources :posts
+
   get '/about', to: 'homepage#about'
   get '/cookies', to: 'homepage#cookies'
 

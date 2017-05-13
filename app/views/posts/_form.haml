@@ -1,0 +1,6 @@
+= form_for @post do |f|
+  = f.text_field :title, class: 'form-control', placeholder: "Title"
+  = f.text_area :description, class: 'form-control', placeholder: "Description"
+  = f.date_field :expiration_date, placeholder: "Date"
+  = f.hidden_field :user_id, value: current_user.id
+  = f.submit 'Submit', class: 'btn btn-sm'
