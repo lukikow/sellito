@@ -44,7 +44,7 @@ before_action :fetch_post, only: [:show, :edit, :update, :destroy]
 
   private
   def post_params
-    params.require(:post).permit(:title, :description, :expire_date, :user_id)
+    params.require(:post).permit(:title, :description, :expiration_date, :user_id)
   end
 
   def fetch_post
